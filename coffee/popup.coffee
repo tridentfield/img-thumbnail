@@ -39,7 +39,7 @@ class ImgThumbnailUI
     @setupThumbnail()
 
   setupThumbnail: ->
-    @thumbnail = $('#thumbnail')
+    @imgContainer = $('#img_container')
 
   setupNext: ->
     @next = $('#next')
@@ -59,7 +59,24 @@ class ImgThumbnailUI
 
   showImg: (img) ->
     img ?= @core.current()
+    @thumbnail = $(new Image())
+    @thumbnail.bind('load', $.proxy(@thumbnailLoad, @))
+    @thumbnail.addClass('thumbnail')
     @thumbnail.attr('src', img.src)
+
+  thumbnailLoad: ->
+    console.log(@thumbnail.prop('naturalHeight') + ':' + @thumbnail.prop('naturalWidth'))
+    imgWidth = @thumbnail.prop('naturalWidth')
+    imgHeight = @thumbnail.prop('naturalHeight')
+    if imgWidth > imgHeight and imgWidth > 380
+      @thumbnail.attr('width', 360)
+      @thumbnail.attr('heigth', imgHeight * (360 / imgWidth))
+    else if imgHeight > imgWidth and imgHeight > 400
+      @thumbnail.attr('width', imgWidth * (400 / imgHeight))
+      @thumbnail.attr('height', 400)
+
+    $('img').remove('.thumbnail')
+    @imgContainer.append(@thumbnail)
 
   @create: (page)->
     new ImgThumbnailUI(page)
@@ -73,6 +90,7 @@ init = ->
   chrome.tabs.getSelected null, (tab) ->
     page = bg.getPage(tab.url)
     imgThumbnailUI = ImgThumbnailUI.create(page)
+    imgThumbnailUI.showImg()
 
   chrome.tabs.onActivated.addListener (activeInfo) ->
     console.log(activeInfo.tabId)

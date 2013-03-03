@@ -58,7 +58,7 @@ ImgThumbnailUI = (function() {
   };
 
   ImgThumbnailUI.prototype.setupThumbnail = function() {
-    return this.thumbnail = $('#thumbnail');
+    return this.imgContainer = $('#img_container');
   };
 
   ImgThumbnailUI.prototype.setupNext = function() {
@@ -85,7 +85,26 @@ ImgThumbnailUI = (function() {
     if (img == null) {
       img = this.core.current();
     }
+    this.thumbnail = $(new Image());
+    this.thumbnail.bind('load', $.proxy(this.thumbnailLoad, this));
+    this.thumbnail.addClass('thumbnail');
     return this.thumbnail.attr('src', img.src);
+  };
+
+  ImgThumbnailUI.prototype.thumbnailLoad = function() {
+    var imgHeight, imgWidth;
+    console.log(this.thumbnail.prop('naturalHeight') + ':' + this.thumbnail.prop('naturalWidth'));
+    imgWidth = this.thumbnail.prop('naturalWidth');
+    imgHeight = this.thumbnail.prop('naturalHeight');
+    if (imgWidth > imgHeight && imgWidth > 380) {
+      this.thumbnail.attr('width', 360);
+      this.thumbnail.attr('heigth', imgHeight * (360 / imgWidth));
+    } else if (imgHeight > imgWidth && imgHeight > 400) {
+      this.thumbnail.attr('width', imgWidth * (400 / imgHeight));
+      this.thumbnail.attr('height', 400);
+    }
+    $('img').remove('.thumbnail');
+    return this.imgContainer.append(this.thumbnail);
   };
 
   ImgThumbnailUI.create = function(page) {
@@ -105,7 +124,8 @@ imgThumbnailUI = null;
 init = function() {
   chrome.tabs.getSelected(null, function(tab) {
     page = bg.getPage(tab.url);
-    return imgThumbnailUI = ImgThumbnailUI.create(page);
+    imgThumbnailUI = ImgThumbnailUI.create(page);
+    return imgThumbnailUI.showImg();
   });
   return chrome.tabs.onActivated.addListener(function(activeInfo) {
     return console.log(activeInfo.tabId);
