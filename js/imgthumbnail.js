@@ -4,8 +4,6 @@ Img = (function() {
 
   function Img(element) {
     this.src = element.src;
-    this.nWidth = element.naturalWidth;
-    this.nHeight = element.naturalHeight;
   }
 
   Img.create = function(element) {
@@ -39,7 +37,8 @@ PageContainer = (function() {
   }
 
   PageContainer.prototype.add = function(page) {
-    return this.pages[page.url] = page;
+    var _base, _name, _ref;
+    return (_ref = (_base = this.pages)[_name = page.url]) != null ? _ref : _base[_name] = page;
   };
 
   PageContainer.prototype.get = function(url) {

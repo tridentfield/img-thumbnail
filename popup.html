@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="css/popup.css">
     <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="js/imgthumbnail.js"></script>
     <script type="text/javascript" src="js/popup.js"></script>
 </head>
 <body>
+<div id="container">
+    <div id="header">
+        <div id="page_title">ページタイトル</div>
+        <div id="page_url">http://xxx.xxx.xxx.xxx/index.html</div>
+    </div>
 
-    <div id="page_title"></div>
+    <div id="contents">
+        <div id="page_controller">
+            <div id="previous" class="button">previous</div>
+            <div id="next" class="button">next</div>
+        </div>
+        <div id="img_container">
+            <img id="thumbnail" src="" alt="">
+        </div>
+    </div>
 
+    <div id="footer">
+    </div>
+</div>
 </body>
 </html>

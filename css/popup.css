@@ -1,0 +1,47 @@
+body {
+    margin: 2px;
+    width: 380px;
+    height: 420px;
+}
+
+#container {
+}
+
+#header {
+    padding: 4px;
+    background-color: #333;
+}
+
+#page_title {
+    color: #FFF;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#page_url {
+    color: #CCC;
+    font-size: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#page_controller div {
+    display: inline-block;
+}
+
+#img_container {
+    background-color: #EFEFEF;
+    width: 380px;
+    height: 420px;
+}
+
+#thumbnail {
+    overflow: auto;
+}
+
+.button {
+    cursor: pointer;
+}
