@@ -36,10 +36,13 @@ body {
     background-color: #EFEFEF;
     width: 380px;
     height: 420px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
 }
 
 #thumbnail {
-    overflow: auto;
+    vertical-align: middle;
 }
 
 .button {
